@@ -23,35 +23,13 @@ public class ReverseString {
             j--;
         }
 
-        i = 0;
-        int length = characters.length;
-        while(i < length - 1) {
-            if(characters[i] == ' ' && characters[i +1] == ' ') {
-                int k = i;
-                while ( characters[k + 1] == ' ') {
-                    k++;
-                }
 
-                while( k < length ) {
-                    characters[i++] = characters[k++];
-                }
-
-                length = length - (k - i);
-
-            } else {
-                i++;
-            }
-        }
-
-        for(int l = length ; l < characters.length; l++ ) {
-            characters[l] = '\0';
-        }
-
+        characters = new String(characters).replaceAll(" +"," ").toCharArray();
 
         int k = 0;
         i = 0;
         while (true) {
-            while (k < length && characters[k] != ' ') {
+            while (k < characters.length && characters[k] != ' ') {
                 k++;
             }
 
@@ -65,33 +43,22 @@ public class ReverseString {
                 j--;
             }
 
-            if (k == length) {
+            if (k == characters.length) {
                 break;
             }
 
-            i = j = k;
-            while (k + 1 < length && characters[k + 1] == ' ') {
-                k++;
-            }
-
-            while (j != k && k < length - 1) {
-                characters[j++] = characters[k++];
-            }
-
-            length -= k - j;
-
-            i++;
-            j = k = i;
+            k++;
+            i = k;
 
         }
 
-        return String.valueOf(characters);
+        return new String(characters);
     }
 
     public static void main(String[] args) {
 
         ReverseString obj = new ReverseString();
-        System.out.println(String.valueOf(obj.reverseWords("  abc   hyt  ")));
+        System.out.println(String.valueOf(obj.reverseWords("  abc   h yt  ")));
 
     }
 }
