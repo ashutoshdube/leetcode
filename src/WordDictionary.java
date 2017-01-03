@@ -5,7 +5,7 @@ import java.util.Stack;
  */
 public class WordDictionary {
 
-    private Node root;
+    public Node root;
 
     private class Node {
 
@@ -83,9 +83,11 @@ public class WordDictionary {
     public void printDictionary(Node node) {
 
         System.out.println(node.ch);
-        for(Node nd : node.links) {
-            if(nd != null) {
-                printDictionary(nd);
+        if(node.links != null) {
+            for (int i = 0; i < node.links.length; i++) {
+                if (node.links[i] != null) {
+                    printDictionary(node.links[i]);
+                }
             }
         }
     }
