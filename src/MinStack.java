@@ -13,20 +13,22 @@ public class MinStack {
     /** initialize your data structure here. */
     public MinStack() {
         stack = new ArrayList<>();
+        minimum = new ArrayList<>();
         top = -1;
     }
 
     public void push(int x) {
         stack.add(++top, x);
-        if(minimum.size() == 0 || x < minimum.get(top - 1)) {
+        if(top == 0 || x < minimum.get(top - 1)) {
             minimum.add(top, x);
         } else {
-            minimum.add(stack.get(top - 1));
+            minimum.add(minimum.get(top - 1));
         }
     }
 
     public void pop() {
-        top--;
+        if(top >= 0)
+            top--;
     }
 
     public int top() {
@@ -49,7 +51,7 @@ public class MinStack {
         if(top == -1) {
             return -1;
         } else {
-            return stack.get(stack.size()/2);
+            return stack.get(top/2);
         }
     }
 

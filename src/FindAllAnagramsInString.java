@@ -3,6 +3,8 @@ import java.util.*;
 /**
  * Created by Ashutosh on 12/30/16.
  */
+
+
 public class FindAllAnagramsInString {
 
     public List<Integer> findAnagrams(String s, String p) {

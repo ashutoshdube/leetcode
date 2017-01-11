@@ -1,41 +1,53 @@
 /**
  * Created by Ashutosh on 12/18/16.
  */
+//leetcode : 457
+
 public class CircularArrayLoop {
     public boolean circularArrayLoop(int[] nums) {
 
-        if(nums == null || nums.length ==0){
+        if(nums == null || nums.length < 2){
             return false;
         }
 
-        int i = 0, j = 0;
+        int slow = 0, fast = 0;
 
         int count = 0;
-        while (true) {
+        for(int i = 0; i < nums.length; i++) {
+            slow = fast = i;
 
-            i = (i + (nums[i] + nums.length) % nums.length) % nums.length;
-            j = (j + (nums[j] + nums.length) % nums.length) % nums.length;
-            j = (j + (nums[j] + nums.length) % nums.length) % nums.length;
-            count++;
+            /*int temp1 = (slow + ((nums[slow] + nums.length) % nums.length)) % nums.length;
+            if(nums[slow] * nums[temp1] < 0) {
+                continue;
+            }*/
 
-            System.out.println(i);
-            System.out.println(j);
+            while (true) {
 
-            if(count > nums.length) {
-                return false;
+                slow = (slow + ((nums[slow] + nums.length) % nums.length)) % nums.length;
+                fast = (fast + ((nums[fast] + nums.length) % nums.length)) % nums.length;
+                fast = (fast + ((nums[fast] + nums.length) % nums.length)) % nums.length;
+
+                if(nums[slow] * nums[fast] < 0) {
+                    break;
+                }
+
+                if(slow == fast) {
+                    int temp = (slow + ((nums[slow] + nums.length) % nums.length)) % nums.length;
+                    if(temp == fast) {
+                        break;
+                    }
+                    return true;
+                }
             }
-
-            if(i == j && (i + (nums[i] + nums.length) % nums.length) % nums.length != j) {
-                return true;
-            }
-
         }
+
+        return false;
 
     }
 
     public static void main(String[] args) {
         CircularArrayLoop obj = new CircularArrayLoop();
-        int[] test = {-2, 1, -1, -2, -2};
+        int[] test = {2, -1, 1, 2, 2};
         System.out.println(obj.circularArrayLoop(test));
 
     }
